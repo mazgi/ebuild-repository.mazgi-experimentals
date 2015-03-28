@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
+<repositories xmlns="" version="1.0">
+  <repo quality="experimental" status="unofficial">
+    <name><![CDATA[mazgi-portage-overlay]]></name>
+    <description lang="en"><![CDATA[An overlay by @mazgi]]></description>
+    <homepage>http://mazgi.com/</homepage>
+    <owner type="person">
+      <email>MATSUKI.Hidenori@gmail.com</email>
+      <name><![CDATA[Hidenori MATSUKI]]></name>
+    </owner>
+    <source type="git">git://github.com/mazgi/portage-overlay.git</source>
+  </repo>
+</repositories>
