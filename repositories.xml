@@ -2,7 +2,7 @@
 <!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
 <repositories xmlns="" version="1.0">
   <repo quality="experimental" status="unofficial">
-    <name><![CDATA[mazgi-portage-overlay]]></name>
+    <name><![CDATA[Portage Experiments Mazgi]]></name>
     <description lang="en"><![CDATA[An overlay by @mazgi]]></description>
     <homepage>http://mazgi.com/</homepage>
     <owner type="person">
