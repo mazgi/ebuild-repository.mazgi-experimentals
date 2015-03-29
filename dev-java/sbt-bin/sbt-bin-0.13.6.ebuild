@@ -6,7 +6,7 @@ EAPI=5
 
 DESCRIPTION="sbt, a build tool for Scala."
 HOMEPAGE="http://scala-sbt.org"
-SRC_URI="http://dl.bintray.com/sbt/native-packages/sbt/${PV}/${PN/-bin}-${PV}.tgz"
+SRC_URI="http://dl.bintray.com/sbt/native-packages/sbt/${PV}/sbt-${PV}.tgz"
 
 LICENSE="BSD"
 SLOT="0.13"
@@ -20,7 +20,7 @@ RDEPEND="${DEPEND}"
 src_unpack() {
 	default
 
-	mv "${WORKDIR}/${PN/-bin}" "${S}" || die
+	mv "${WORKDIR}/sbt" "${S}" || die
 }
 
 src_install() {

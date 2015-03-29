@@ -6,10 +6,10 @@ EAPI=5
 
 DESCRIPTION="sbt, a build tool for Scala."
 HOMEPAGE="http://scala-sbt.org"
-SRC_URI="http://dl.bintray.com/sbt/native-packages/sbt/${PV}/${PN/-bin}-${PV}.tgz"
+SRC_URI="http://repo.scala-sbt.org/scalasbt/sbt-native-packages/org/scala-sbt/sbt/${PV}/sbt.tgz"
 
 LICENSE="BSD"
-SLOT="0.13"
+SLOT="0.12"
 KEYWORDS="~amd64"
 
 IUSE=""
@@ -20,7 +20,7 @@ RDEPEND="${DEPEND}"
 src_unpack() {
 	default
 
-	mv "${WORKDIR}/${PN/-bin}" "${S}" || die
+	mv "${WORKDIR}/sbt" "${S}" || die
 }
 
 src_install() {
@@ -30,7 +30,7 @@ src_install() {
 	rm -f "${S}/bin/sbt.bat" || die
 
 	insinto "${dest}"
-	doins -r bin conf || die
+	doins -r bin jansi-license.txt || die
 	fperms 0755 "${dest}/bin/sbt" || die
 
 	dosym "${dest}/bin/sbt" /usr/bin/sbt || die
