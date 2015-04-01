@@ -1,0 +1,5 @@
+JAVA_OPTS="${JAVA_OPTS} -Xms1G -Xmx1G"
+JAVA_OPTS="${JAVA_OPTS} -XX:MaxPermSize=128m -XX:PermSize=32m"
+JAVA_OPTS="${JAVA_OPTS} -verbose:gc -Xloggc:/var/log/${SVCNAME}/gc.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps"
+JAVA_OPTS="${JAVA_OPTS} -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=10M"
+JAVA_OPTS="${JAVA_OPTS} -Dcom.sun.management.jmxremote"

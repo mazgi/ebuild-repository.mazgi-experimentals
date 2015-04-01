@@ -10,18 +10,18 @@ APP_USER="${APP_USER:-play}"
 APP_GROUP="${APP_GROUP:-play}"
 if [ -n "${APP_SVCNAME}" -a "${SVCNAME}" != "playscala-example" ]; then
   description="${description} for ${APP_SVCNAME}"
-  APP_PID="/var/run/playscala-example.${APP_SVCNAME}.pid"
-  APP_CONF_DEFAULT="/etc/playscala-example/${APP_SVCNAME}.conf"
-else
-  APP_PID="/var/run/playscala-example.pid"
-  APP_CONF_DEFAULT="/etc/playscala-example/application.conf"
 fi
-APP_CONF="${APP_CONF:-${APP_CONF_DEFAULT}}"
-APP_EXEC="${APP_EXEC:-/var/lib/playscala-example/versions/current/bin/helloplay}"
+APP_CONF_DIR_DEFAULT="/etc/${SVCNAME}"
+APP_PID="/var/run/${SVCNAME}/${APP_SVCNAME}.pid"
+APP_HTTP_ADDRESS="${APP_HTTP_ADDRESS:-127.0.0.1}"
+APP_HTTP_PORT="${APP_HTTP_PORT:-9000}"
+APP_CONF_DIR="${APP_CONF_DIR:-${APP_CONF_DIR_DEFAULT}}"
+APP_EXEC="${APP_EXEC:-/var/lib/${SVCNAME}/versions/current/bin/helloplay}"
 LD_PRELOAD_OPTS=""
 if [ -f "/usr/lib64/libjemalloc.so" ]; then
   LD_PRELOAD_OPTS="/usr/lib64/libjemalloc.so"
 fi
+JAVA_OPTS="${JAVA_OPTS}"
 
 #depend() {
 #
@@ -29,19 +29,15 @@ fi
 
 start() {
   ebegin "Starging ${SVCNAME}"
+    install -o ${APP_USER} -g ${APP_GROUP} --directory "$(dirname ${APP_PID})"
     start-stop-daemon \
     --start \
     --user "${APP_USER}" \
     --background \
-    --make-pidfile --pidfile "${APP_PID}" \
+    --pidfile "${APP_PID}" \
     --env LD_PRELOAD="${LD_PRELOAD_OPTS}" \
-    --env JAVA_OPTS="${JAVA_OPTS} -Xms2G -Xmx2G" \
-    --env JAVA_OPTS="${JAVA_OPTS} -XX:MaxPermSize=128m -XX:PermSize=32m" \
-    --env JAVA_OPTS="${JAVA_OPTS} -verbose:gc -Xloggc:/var/log/${SVCNAME}/gc.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps" \
-    --env JAVA_OPTS="${JAVA_OPTS} -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=10M" \
-    --env JAVA_OPTS="${JAVA_OPTS} -XX:OnOutOfMemoryError=\"kill -9 %p\"" \
-    --env JAVA_OPTS="${JAVA_OPTS} -Dcom.sun.management.jmxremote" \
-    --exec /bin/bash -- -c "exec ${APP_EXEC} >> /var/log/${SVCNAME}/console.log 2>&1" \
+    --env JAVA_OPTS="${JAVA_OPTS}" \
+    --exec /bin/bash -- -c "exec ${APP_EXEC} -Dpidfile.path="${APP_PID}" -Dhttp.address="${APP_HTTP_ADDRESS}" -Dhttp.port="${APP_HTTP_PORT}" -Dconfig.file="${APP_CONF_DIR}/application.conf" -Dlogger.file="${APP_CONF_DIR}/logger.xml" >> /var/log/${SVCNAME}/console.log 2>&1" \
     -- --log "/var/log/${SVCNAME}/${SVCNAME}.log"
     eend $?
 }
