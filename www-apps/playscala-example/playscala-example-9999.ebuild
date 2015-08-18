@@ -24,8 +24,8 @@ IUSE="+symlink +autoclean doc"
 use autoclean || AUTOCLEAN=no
 
 DEPEND=">=dev-java/sbt-bin-0.13
->=virtual/jdk-1.7"
-RDEPEND=">=virtual/jre-1.7"
+>=virtual/jdk-1.8"
+RDEPEND=">=virtual/jre-1.8"
 
 DIST_NAME="helloplay"
 DIST_VERSION="1.0-SNAPSHOT"
