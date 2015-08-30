@@ -18,7 +18,7 @@ if [[ ${PV} != 9999 ]]; then
 fi
 
 LICENSE="MIT"
-KEYWORDS=""
+KEYWORDS="amd64"
 IUSE="+symlink +autoclean doc"
 
 use autoclean || AUTOCLEAN=no
