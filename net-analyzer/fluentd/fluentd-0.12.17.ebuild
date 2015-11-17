@@ -5,12 +5,12 @@
 EAPI=5
 USE_RUBY="ruby19 ruby20 ruby21 ruby22"
 
-RUBY_FAKEGEM_BINWRAP=""
+RUBY_FAKEGEM_BINWRAP="fluentd fluent-cat fluent-debug fluent-gem"
 
 RUBY_FAKEGEM_TASK_DOC=""
 RUBY_FAKEGEM_TASK_TEST=""
 
-RUBY_FAKEGEM_EXTRADOC="README.md CHANGELOG.md"
+RUBY_FAKEGEM_EXTRADOC="README.md AUTHORS CONTRIBUTING.md COPYING ChangeLog"
 
 inherit ruby-fakegem versionator
 
