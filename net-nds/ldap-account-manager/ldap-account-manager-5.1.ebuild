@@ -19,12 +19,21 @@ IUSE=""
 DEPEND=">=dev-lang/php-5.3.2[ldap,xml,mhash,zip]"
 RDEPEND="${DEPEND}"
 
-src_configure() {
-	econf
-}
-
 src_install() {
 	webapp_src_preinst
+
+	insinto ${MY_HTDOCSDIR}
+	doins VERSION
+	doins -r config
+	doins -r graphics
+	doins -r help
+	doins index.html
+	doins -r lib
+	doins -r locale
+	doins -r sess
+	doins -r style
+	doins -r templates
+	doins -r tmp
 
 	webapp_src_install
 }
