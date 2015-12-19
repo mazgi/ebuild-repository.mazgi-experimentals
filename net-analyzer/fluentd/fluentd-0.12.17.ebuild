@@ -13,7 +13,7 @@ RUBY_FAKEGEM_TASK_TEST=""
 RUBY_FAKEGEM_EXTRADOC="README.md AUTHORS CONTRIBUTING.md COPYING ChangeLog"
 RUBY_FAKEGEM_EXTRAINSTALL="fluent.conf"
 
-inherit ruby-fakegem versionator
+inherit ruby-fakegem user versionator
 
 DESCRIPTION="Fluentd is an open source data collector for unified logging layer."
 HOMEPAGE="http://www.fluentd.org"
@@ -41,3 +41,23 @@ RDEPEND="${RDEPEND}
 	ruby_targets_ruby20? (
 		>=dev-ruby/string-scrub-0.0.3
 	)"
+
+pkg_setup() {
+	enewgroup fluentd
+	enewuser fluentd -1 -1 -1 fluentd
+}
+
+all_ruby_install() {
+	all_fakegem_install
+
+	keepdir "/var/log/${PN}"
+	keepdir "/etc/${PN}"
+	fowners fluentd:fluentd "/var/log/${PN}"
+
+	newconfd "${FILESDIR}/${PN}.confd" ${PN}
+	newinitd "${FILESDIR}/${PN}.initd" ${PN}
+}
+
+pkg_postinst() {
+	ewarn "Run \`fluentd --setup /etc/fluentd\` to create Fluentd config."
+}
