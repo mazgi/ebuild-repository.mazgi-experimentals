@@ -34,6 +34,6 @@ start() {
 
 stop() {
   ebegin "Stopping ${APP_SVCNAME}"
-  start-stop-daemon --stop --pidfile "${APP_PID}"
+  start-stop-daemon --stop --pidfile "${APP_PID}" --retry=TERM/30/TERM/30/TERM/30/KILL/60
   eend $?
 }
